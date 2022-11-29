@@ -10,7 +10,7 @@ const DEFAULT_SPEED = 50;
 export default function Home() {
   const [instance, setInstance] = useState(null);
   const [showButton, setShowButton] = useState(false);
-  const [location, setLocation] = useState(27);
+  const [location, setLocation] = useState(0);
   const [backgroundAudio, setBackgroundAudio] = useState(null);
   const [voiceAudio, setVoiceAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
