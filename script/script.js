@@ -19,7 +19,7 @@ const text = [
   { display: "ever heard of twitter?", button: "no?" },
   {
     display:
-      "it's this weird amalgamation of the best and worst things in the world... it's like your college dorm but half the people have slept together and the half that haven't are desperately throwing themselves at those who have.",
+      "it's this weird amalgamation of the best and worst things in the world... it's as if time square, central park, and a mosh pit all had a baby",
     button: "gross",
   },
   {
@@ -37,10 +37,10 @@ const text = [
       "ah... we've got a pretentious one on our hands. lemme dig around in the back to see if we've got a machine",
     button: "thank you",
   },
-  { display: "...", button: "..." },
-  { display: "...", button: "..." },
-  { display: "...", button: "..." },
-  { display: "...!", button: "...?" },
+  { display: "....", button: "...." },
+  { display: "....", button: "...." },
+  { display: "....", button: "...." },
+  { display: "....!", button: "....?" },
   {
     display: "you're in luck kid... I found one in the back",
     button: "can you make it a double? didn't sleep well last night",
@@ -49,10 +49,10 @@ const text = [
   { display: "*coffee machine whirs*", button: "..." },
   {
     display: "*a faint grunting sound can be heard in the back*",
-    button: "...?",
+    button: "....?",
   },
   {
-    display: "...",
+    display: "....",
     button: "*it sound's like he's struggling... maybe I should help?*",
   },
   {
@@ -140,9 +140,9 @@ const text = [
     button: "...",
   },
   { display: "but ultimately...", button: "..." },
-  { display: "...", button: "..." },
+  { display: "....", button: "..." },
   {
-    display: "...",
+    display: "....",
     button: "pull the plug/let him go slowly",
     choice: true,
   },
