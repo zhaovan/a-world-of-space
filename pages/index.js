@@ -10,7 +10,7 @@ const DEFAULT_SPEED = 50;
 export default function Home() {
   const [instance, setInstance] = useState(null);
   const [showButton, setShowButton] = useState(false);
-  const [location, setLocation] = useState(0);
+  const [location, setLocation] = useState(27);
   const [backgroundAudio, setBackgroundAudio] = useState(null);
   const [voiceAudio, setVoiceAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -27,7 +27,7 @@ export default function Home() {
     setLocation(newLocation);
 
     if (currChoice !== null) {
-      text[newLocation].display += " " + currChoice;
+      text[newLocation].display += " " + currChoice + "*";
     }
 
     voiceAudio.loop = true;
@@ -47,6 +47,7 @@ export default function Home() {
       backgroundAudio.volume = 1;
       backgroundAudio.loop = true;
       backgroundAudio.play();
+      voiceAudio.volume = 0.3;
     }
 
     if (newLocation >= text.length) {

@@ -100,8 +100,26 @@ const text = [
     button: "...",
   },
   {
+    display: "he looks at his father's body, riddled with years of life",
+    button: "...",
+  },
+  { display: "the doctor walks in", button: "..." },
+  {
     display:
-      "the doctor looks at him with a heavy heart, and hands him the papers. he can choose to pull the plug whenever, he is told, but there is no rush",
+      "the doctor looks at him with a heavy heart, and hands him a sheaf of papers. documents to sign off on for his father's impending death",
+    button: "...",
+  },
+  {
+    display:
+      "'your fahter has been fighting for months... I don't know how much longer it can go'",
+    button: "...",
+  },
+  {
+    display: "beep... beep... beep...",
+    button: "...",
+  },
+  {
+    display: "he ached from inside... what was it?",
     button: "...",
   },
   {
@@ -111,12 +129,12 @@ const text = [
   },
   {
     display:
-      "the boy is conflicted... the boy had been coming here for months now... why now?",
+      "the boy is conflicted... the boy had been coming here for months now... what had changed... why now?",
     button: "...",
   },
   {
     display:
-      "the doctor said that the father was in terrible pain, that to keep going would be more damaging than good",
+      "the doctor said that the father was in terrible pain, that to keep him going would be more damaging than good",
     button: "...",
   },
   {
