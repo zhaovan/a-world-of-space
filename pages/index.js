@@ -43,6 +43,7 @@ export default function Home() {
       setIsPlaying(true);
       backgroundAudio.playbackRate = 0.7;
       backgroundAudio.volume = 1;
+      backgroundAudio.loop = true;
       backgroundAudio.play();
     }
 
