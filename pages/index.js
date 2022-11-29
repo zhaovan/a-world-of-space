@@ -10,16 +10,14 @@ const DEFAULT_SPEED = 50;
 export default function Home() {
   const [instance, setInstance] = useState(null);
   const [showButton, setShowButton] = useState(false);
-  const [location, setLocation] = useState(48);
+  const [location, setLocation] = useState(0);
   const [backgroundAudio, setBackgroundAudio] = useState(null);
   const [voiceAudio, setVoiceAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  // const [endingAudio, setEndingAudio] = useState(null);
 
   useEffect(() => {
     setBackgroundAudio(new Audio("/music1.mp3"));
     setVoiceAudio(new Audio("/voice.m4a"));
-    // setEndingAudio(new Audio("/end.mp3"));
   }, []);
 
   function progressStory(currChoice = "") {
