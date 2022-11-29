@@ -89,8 +89,8 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>a void in space</title>
-        <meta name="description" content="a void in space" />
+        <title>a world of space</title>
+        <meta name="description" content="a world of space" />
         <link rel="icon" href="/icon.png" />
       </Head>
       <div className={styles.container}>

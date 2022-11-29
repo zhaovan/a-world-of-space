@@ -1,5 +1,5 @@
 const text = [
-  { display: "recommended: having music on low", button: "get started" },
+  { display: "recommended: having sound on low", button: "get started" },
   { display: "hey", button: "hey?" },
   { display: "oh... you must be new here...", button: "I guess?" },
   {
