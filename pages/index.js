@@ -93,7 +93,7 @@ export default function Home() {
       <Head>
         <title>a void in space</title>
         <meta name="description" content="a void in space" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/icon.png" />
       </Head>
       <div className={styles.container}>
         <div className={styles.displayContainer}>
