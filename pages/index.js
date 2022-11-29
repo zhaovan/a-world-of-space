@@ -33,7 +33,11 @@ export default function Home() {
     voiceAudio.loop = true;
 
     // if it is a real text message and not a spacing line
-    if (text[location].display.includes("....") || newLocation >= text.length) {
+    if (
+      text[location].display.includes("....") ||
+      text[location].display.includes("*") ||
+      newLocation >= text.length
+    ) {
     } else {
       voiceAudio.play();
     }
@@ -58,18 +62,6 @@ export default function Home() {
     }
 
     // pulling plug
-
-    // if (location === 41) {
-    //   instance
-    //     .delete(text[pastLocation].display.length, { instant: true })
-    //     .type(text[newLocation].display);
-    //   if (currChoice === "pull the plug") instance.options({ speed: 200 });
-    //   instance.type(" " + currChoice).flush(() => {
-    //     voiceAudio.pause();
-    //     delayButton(1000);
-    //   });
-    //   instance.options({ speed: DEFAULT_SPEED });
-    // } else {
     instance
       // .reset()
       .delete(text[pastLocation].display.length, { instant: true })
