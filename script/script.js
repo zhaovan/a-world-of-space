@@ -164,7 +164,7 @@ const text = [
     button: "pull the plug/let him go slowly",
     choice: true,
   },
-  { display: "you chose to", button: "..." },
+  { display: "*you chose to", button: "..." },
   { display: "i guess that's fair", button: "..." },
   {
     display:
