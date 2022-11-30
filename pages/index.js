@@ -28,8 +28,8 @@ export default function Home() {
   useEffect(() => {
     setBackgroundAudio(new Audio("/music1.mp3"));
     setVoiceAudio(new Audio("/voice.m4a"));
-    setHospitalAudio(new Audio("/hospital.mp3"));
-    setShoppingAudio(new Audio("/shopping.mp3"));
+    setHospitalAudio(new Audio("/hospital.m4a"));
+    setShoppingAudio(new Audio("/shopping.m4a"));
     setCookie(localStorage.getItem("choice"));
   }, []);
 
