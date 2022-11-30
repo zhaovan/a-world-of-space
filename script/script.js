@@ -1,51 +1,63 @@
 const text = [
   { display: "recommended: having sound on low", button: "get started" },
-  { display: "hey", button: "hey?" },
-  { display: "oh... you must be new here...", button: "I guess?" },
+  { display: "hey", button: "hey?", backgroundMusicOn: true },
   {
-    display:
-      "that's cool. welcome to a tiny infinite speck in the black void of the internet",
-    button: "ha ha",
+    display: "do i know you?",
+    button: "i'm not sure... i just got here.",
+  },
+  {
+    display: "oh you just look ... never mind",
+    button: "do you know what this place is?",
   },
   {
     display:
-      "no i'm serious... it's just you and me here... we've got all the time in the world",
-    button: "what does that actually mean?",
-  },
-  {
-    display: "mmmm well i mean time passes differently here.",
-    button: "that doesn't explain anything",
-  },
-  { display: "ever heard of twitter?", button: "no?" },
-  {
-    display:
-      "it's this weird amalgamation of the best and worst things in the world... it's as if time square, central park, and a mosh pit all had a baby",
-    button: "gross",
+      "not sure... it seems to be tiny speck in the black void. for some reason I can't remember much or see much else",
+    button: "me neither to be quite honest",
   },
   {
     display:
-      "exactly!!  but when you're on it... it feels like time both slows down and passes extremely quickly. it doesn't make sense",
-    button: "...I guess not",
+      "spooky... i've been walking around for hours... it's just you and me here",
+    button: "oh. how'd we even get here?",
+  },
+  {
+    display: "maybe our digital consciousness touched",
+    button: "right",
+  },
+  {
+    display: "somewhere... in the world",
+    button: "okay...",
+  },
+  {
+    display: "and it's here... meant to be together",
+    button: "that really doesn't clear it up",
+  },
+  { display: "or maybe we're DEAD", button: "WHAT ???" },
+  { display: "im just kidding", button: "ha ha verryyyyy funny" },
+  { display: "well if you really want you can leave", button: "how?" },
+  {
+    display: "i think you know",
+    button: "i'll keep it in mind. i'll stick around for a bit though",
   },
   {
     display:
-      "anyways, while I have you here, why don't you cozy up and make yourself comfortable. coffee?",
-    button: "got any espresso?",
+      "anyways, we might be here for a while... might as well make ourselves at home",
+    button: "ill try",
   },
+
+  {
+    display: "i would kill for a good espresso",
+    button: "maybe i'll manifest one",
+  },
+  { display: "*just then a machine appears*", button: "..." },
   {
     display:
-      "ah... we've got a pretentious one on our hands. lemme dig around in the back to see if we've got a machine",
-    button: "thank you",
-  },
-  { display: "....", button: "...." },
-  { display: "....", button: "...." },
-  { display: "....", button: "...." },
-  { display: "....!", button: "....?" },
-  {
-    display: "you're in luck kid... I found one in the back",
+      "well i'll be damned. anything's possible here. alright, espresso?",
     button: "can you make it a double? didn't sleep well last night",
   },
-  { display: "don't push it...", button: "haha sorry" },
+  {
+    display: "yesiree. wish me a million bucks",
+    button: "not sure if it works like that but i'll try",
+  },
   { display: "*coffee machine whirs*", button: "..." },
   {
     display: "*a faint grunting sound can be heard in the back*",
@@ -56,23 +68,40 @@ const text = [
     button: "*it sound's like he's struggling... maybe I should help?*",
   },
   {
-    display: "all done! here ya go... one double shot, on the house!",
-    button: "thanks. I didn't have any money to begin with though",
+    display: "all done! here ya go... one double shot, on me!",
+    button: "thank you",
   },
-  { display: "good thing it's on us then *winks*", button: "alright..." },
   {
-    display: "mmmm all cozy now? want to hear a story?",
-    button: "sure? what else do I have to do?",
+    display: "....",
+    button: "*it's good, just the way you like it*",
   },
-  { display: "that's the spirit!", button: "sigh..." },
+  {
+    display: "*a long sip*",
+    button: "...",
+  },
+  {
+    display: "....!",
+    button: "...?",
+  },
+  {
+    display: "*it seems like he wants to tell you something*",
+    button: "what's up?",
+  },
+  {
+    display: "i just remembered something... i'm not sure what it means",
+    button: "tell me and we can work it out together",
+  },
+  { display: "sounds good", button: "..." },
+  { display: "here it goes", button: "..." },
   {
     display:
       "a boy and a father are out on a shopping trip. the boy wants to stop by at the ice cream parlor. the father, being the dutiful dad, obliges",
     button: "...",
+    shoppingMusicOn: true,
   },
   {
     display:
-      "at the shop, the boy looks around at all the flavors, indulging in the choices. in an almost drunken stupor, overwhelmed, the boy asks the father to pick for him.",
+      "at the shop, the boy looks around at all the flavors, indulging in the choices. overwhelmed, the boy asks the father to pick for him.",
     button: "...",
   },
   {
@@ -89,11 +118,13 @@ const text = [
     display:
       "twenty years pass, and the boy is a boy no longer. in weathered hands are a fresh bouquet of flowers",
     button: "...",
+    shoppingMusicOn: false,
   },
   {
     display:
       "the father is now in the infirmary, a heart too full placed him there",
     button: "...",
+    hospitalMusicOn: true,
   },
   {
     display: "the boy is ushered into the room, a faint beeping can be heard",
@@ -111,11 +142,11 @@ const text = [
   },
   {
     display:
-      "'your fahter has been fighting for months... I don't know how much longer it can go'",
+      "'your father has been fighting for months... I don't know how much longer it can go'",
     button: "...",
   },
   {
-    display: "beep... beep... beep...",
+    display: "beep.... beep.... beep....",
     button: "...",
   },
   {
@@ -138,51 +169,67 @@ const text = [
     button: "...",
   },
   {
-    display:
-      "the old bouquet of flowers sits in a glass vase nearby. the once buttery daffodils, creamy daisies, and chocolately tulips dribble over the sides of the bowl",
+    display: "the old bouquet of flowers sits in a glass vase nearby.",
     button: "...",
   },
   {
     display:
-      "the boy wants some time to think, to ponder his options. the doctor says of course and gently retreats from the room",
+      "the once buttery daffodils, creamy daisies, and chocolately tulips dribble over the sides of the bowl",
     button: "...",
   },
   {
     display:
-      "the boy wonders how he could ever do such a thing. and to have a choice in the death of his father",
+      "the boy wants some time to think, to ponder his options. the doctor nods and gently retreats from the room",
+    button: "...",
+  },
+  {
+    display: "the boy wonders how he could ever pick",
     button: "...",
   },
   {
     display:
-      "he thinks back to the years that they had spent together. he would never give that up",
+      "he thinks back to the years that they had spent together. the father had always been there for him, and he had always been there for the father",
     button: "...",
   },
-  { display: "but ultimately...", button: "..." },
-  { display: "....", button: "..." },
+  { display: "but things are different now...", button: "..." },
+  {
+    display: "ultimately, he had to pick",
+    button: "...",
+    hospitalMusicOn: false,
+    backgroundMusicOn: false,
+  },
   {
     display: "....",
     button: "pull the plug/let him go slowly",
     choice: true,
   },
-  { display: "*you chose to", button: "..." },
-  { display: "i guess that's fair", button: "..." },
+  { display: "*you chose to", button: "...", skip: true, skipNumber: 5 },
+  { display: "i guess that's only fair", button: "..." },
   {
     display:
       "we're all simply an ocean of thoughts, with a tiny leak, dripping to the ends of existence",
     button: "...",
   },
   { display: "and it all comes to a halt", button: "..." },
+  { display: "*the man fades away slowly... *", button: "" },
+  { display: "* and hes gones*", button: "...", end: true },
   {
-    display:
-      "i might've thought it would have ended different... after all I did for you",
+    display: "*he breathes a deep sigh... it's almost gratitude?*",
     button: "...",
   },
   {
-    display: "but I guess not",
+    display: "you know, you still have a soft spot... for your old man",
     button: "...",
   },
-  { display: "thanks for this brief moment together", button: "..." },
-  { display: "goodbye", button: "..." },
+  { display: "*winks*", button: "..." },
+  { display: "i'll keep you in my heart old chap", button: "..." },
+  { display: "but be true to yourself", button: "..." },
+  { display: "and i'll catch you around", button: "..." },
+  {
+    display: "*he closes his eyes... and a soft snore can be heard*",
+    button: "...",
+  },
+  { display: "....", button: "", end: true },
 ];
 
 export default text;

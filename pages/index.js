@@ -5,74 +5,123 @@ import { useState, useEffect } from "react";
 
 import text from "../script/script";
 
-const DEFAULT_SPEED = 50;
+const DEFAULT_SPEED = 10;
 
 export default function Home() {
   const [instance, setInstance] = useState(null);
   const [showButton, setShowButton] = useState(false);
+
   const [location, setLocation] = useState(0);
+
   const [backgroundAudio, setBackgroundAudio] = useState(null);
   const [voiceAudio, setVoiceAudio] = useState(null);
+  const [shoppingAudio, setShoppingAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hospitalAudio, setHospitalAudio] = useState(null);
+  const [choice, setChoice] = useState(null);
+  const [skipNumber, setSkipNumber] = useState(0);
+
+  const [displayText, setDisplayText] = useState(text);
+
+  const [cookie, setCookie] = useState(null);
 
   useEffect(() => {
     setBackgroundAudio(new Audio("/music1.mp3"));
     setVoiceAudio(new Audio("/voice.m4a"));
+    setHospitalAudio(new Audio("/hospital.mp3"));
+    setShoppingAudio(new Audio("/shopping.mp3"));
+    setCookie(localStorage.getItem("choice"));
   }, []);
 
   function progressStory(currChoice = "") {
     setShowButton(false);
-    const pastLocation = location;
-    const newLocation = location + 1;
-    setLocation(newLocation);
+    let newLocation = location + 1 + skipNumber;
 
-    if (currChoice !== null) {
-      text[newLocation].display += " " + currChoice + "*";
+    const pastLocation = location;
+
+    setLocation(newLocation);
+    setSkipNumber(0);
+
+    const currPath = displayText[newLocation];
+
+    if (currChoice !== "") {
+      setChoice(currChoice);
+      backgroundAudio.pause();
+      hospitalAudio.pause();
+      shoppingAudio.pause();
+      currPath.display += " " + currChoice + "*";
     }
 
+    if (currChoice === "pull the plug") {
+      backgroundAudio.pause();
+    }
     voiceAudio.loop = true;
+    console.log(currPath);
 
-    // if it is a real text message and not a spacing line
+    // if it is a real displayText message and not a spacing line
     if (
-      text[location].display.includes("....") ||
-      text[location].display.includes("*") ||
-      newLocation >= text.length
+      currPath.display.includes("....") ||
+      currPath.display.includes("*") ||
+      newLocation >= displayText.length
     ) {
     } else {
       voiceAudio.play();
     }
-    if (backgroundAudio && !isPlaying && location >= 23) {
+    if (backgroundAudio && !isPlaying && currPath.backgroundMusicOn) {
       setIsPlaying(true);
       backgroundAudio.playbackRate = 0.7;
       backgroundAudio.volume = 1;
       backgroundAudio.loop = true;
       backgroundAudio.play();
-      voiceAudio.volume = 0.3;
     }
 
-    if (newLocation >= text.length) {
-      instance.options({ speed: 300 });
-      instance.delete(text[pastLocation].display.length).flush(() => {
-        setTimeout(() => (backgroundAudio.volume = 0.5), 2000);
-        setTimeout(() => (backgroundAudio.volume = 0.4), 4000);
-        setTimeout(() => (backgroundAudio.volume = 0.3), 6000);
-        setTimeout(() => (backgroundAudio.volume = 0.2), 8000);
-        setTimeout(() => (backgroundAudio.volume = 0.1), 10000);
-      });
-      return;
+    if (currPath.backgroundMusicOn === false) {
+      console.log("background music off");
+      backgroundAudio.pause();
     }
 
-    // pulling plug
+    if (shoppingAudio && currPath.shoppingMusicOn) {
+      console.log("shopping music on");
+      shoppingAudio.volume = 0.7;
+      shoppingAudio.play();
+    }
+
+    if (currPath.shoppingMusicOn === false) {
+      console.log("shopping music off");
+      shoppingAudio.pause();
+    }
+
+    // hospital music
+    if (hospitalAudio && currPath.hospitalMusicOn) {
+      console.log("hospital audio on");
+      hospitalAudio.volume = 0.3;
+      hospitalAudio.play();
+    }
+
+    if (currPath.hospitalMusicOn === false) {
+      console.log("hospital music off");
+      console.log(hospitalAudio);
+      hospitalAudio.pause();
+    }
+
     instance
-      // .reset()
-      .delete(text[pastLocation].display.length, { instant: true })
-      .type(text[newLocation].display)
+      .delete(displayText[pastLocation].display.length, { instant: true })
+      .type(currPath.display)
 
       .flush(() => {
         voiceAudio.pause();
         delayButton(1000);
       });
-    // }
+    if (currChoice === "let him go slowly" && currPath.skip) {
+      setSkipNumber(currPath.skipNumber);
+    }
+    if (currPath.end) {
+      if (choice === "pull the plug") {
+        localStorage.setItem("choice", "pull the plug");
+      } else {
+        localStorage.setItem("choice", "let him go slowly");
+      }
+    }
   }
 
   function delayButton(time) {
@@ -87,42 +136,70 @@ export default function Home() {
         <link rel="icon" href="/icon.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.displayContainer}>
+        {cookie === "pull the plug" ? (
           <TypeIt
             getBeforeInit={(instance) => {
               instance.options({ speed: DEFAULT_SPEED });
               instance
-                .type(text[location].display)
-                .flush(() => delayButton(1000));
+                .type(
+                  "there's a faint noise... as if there used to be a man sipping espresso with you here"
+                )
+                .flush();
 
-              return instance;
-            }}
-            getAfterInit={(instance) => {
-              setInstance(instance);
               return instance;
             }}
           />
-        </div>
+        ) : cookie === "let him go slowly" ? (
+          <TypeIt
+            getBeforeInit={(instance) => {
+              instance.options({ speed: DEFAULT_SPEED });
+              instance.type("i can't believe he's really gone").flush();
 
-        {showButton &&
-          voiceAudio &&
-          (text[location].choice ? (
-            text[location].button.split("/").map((event, i) => {
-              return (
-                <button
-                  key={i}
-                  onClick={() => progressStory(event)}
-                  style={{ marginBottom: "2vh" }}
-                >
-                  {event}
+              return instance;
+            }}
+          />
+        ) : (
+          <>
+            <div className={styles.displayContainer}>
+              <TypeIt
+                getBeforeInit={(instance) => {
+                  instance.options({ speed: DEFAULT_SPEED });
+                  instance
+                    .type(displayText[location].display)
+                    .flush(() => delayButton(1000));
+
+                  return instance;
+                }}
+                getAfterInit={(instance) => {
+                  setInstance(instance);
+                  return instance;
+                }}
+              />
+            </div>
+
+            {showButton &&
+              voiceAudio &&
+              (displayText[location].choice ? (
+                displayText[location].button.split("/").map((event, i) => {
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => progressStory(event)}
+                      style={{ marginBottom: "2vh" }}
+                    >
+                      {event}
+                    </button>
+                  );
+                })
+              ) : displayText[location].button !== "" ? (
+                <button onClick={() => progressStory()}>
+                  {displayText[location].button}
                 </button>
-              );
-            })
-          ) : (
-            <button onClick={() => progressStory()}>
-              {text[location].button}
-            </button>
-          ))}
+              ) : (
+                <></>
+              ))}
+          </>
+        )}
       </div>
     </div>
   );
