@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 import text from "../script/script";
 
-const DEFAULT_SPEED = 10;
+const DEFAULT_SPEED = 50;
 
 export default function Home() {
   const [instance, setInstance] = useState(null);
