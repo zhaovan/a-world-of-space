@@ -56,7 +56,6 @@ export default function Home() {
       backgroundAudio.pause();
     }
     voiceAudio.loop = true;
-    console.log(currPath);
 
     // if it is a real displayText message and not a spacing line
     if (

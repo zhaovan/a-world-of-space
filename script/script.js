@@ -11,7 +11,7 @@ const text = [
   },
   {
     display:
-      "not sure... it seems to be tiny speck in the black void. for some reason I can't remember much or see much else",
+      "not sure... it seems to be a tiny speck in the black void. for some reason I can't remember much or see much else",
     button: "me neither to be quite honest",
   },
   {
