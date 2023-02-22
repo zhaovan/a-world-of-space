@@ -13,3 +13,23 @@
 .displayContainer {
   margin-bottom: 2.5vh;
 }
+
+.title {
+  animation: flyup 1.25s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+@keyframes flyup {
+  0% {
+    /* transform: translateY(60vh); */
+    transform: translate(20vw, -60vh);
+  }
+  80% {
+    transform: translate(-5vw, 5vh);
+  }
+  100% {
+    transform: translateY(0, 0);
+    opacity: 1;
+  }
+}

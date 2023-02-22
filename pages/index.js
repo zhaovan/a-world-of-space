@@ -11,6 +11,9 @@ export default function Home() {
   const [instance, setInstance] = useState(null);
   const [showButton, setShowButton] = useState(false);
 
+  const [firstLoad, setFirstLoad] = useState(false);
+
+  // 55 is the choice
   const [location, setLocation] = useState(0);
 
   const [backgroundAudio, setBackgroundAudio] = useState(null);
@@ -30,11 +33,13 @@ export default function Home() {
     setVoiceAudio(new Audio("/voice.m4a"));
     setHospitalAudio(new Audio("/hospital.m4a"));
     setShoppingAudio(new Audio("/shopping.m4a"));
-    setCookie(localStorage.getItem("choice"));
+    setCookie(parseInt(localStorage.getItem("choice")));
+    setTimeout(() => setFirstLoad(true), 2500);
   }, []);
 
-  function progressStory(currChoice = "") {
+  function progressStory(currChoice = "", text = "") {
     setShowButton(false);
+    console.log(currChoice === 1);
     let newLocation = location + 1 + skipNumber;
 
     const pastLocation = location;
@@ -49,10 +54,11 @@ export default function Home() {
       backgroundAudio.pause();
       hospitalAudio.pause();
       shoppingAudio.pause();
-      currPath.display += " " + currChoice + "*";
+      currPath.button = text;
     }
 
-    if (currChoice === "pull the plug") {
+    // first choice
+    if (currChoice === 0) {
       backgroundAudio.pause();
     }
     voiceAudio.loop = true;
@@ -99,7 +105,6 @@ export default function Home() {
 
     if (currPath.hospitalMusicOn === false) {
       console.log("hospital music off");
-      console.log(hospitalAudio);
       hospitalAudio.pause();
     }
 
@@ -111,14 +116,14 @@ export default function Home() {
         voiceAudio.pause();
         delayButton(1000);
       });
-    if (currChoice === "let him go slowly" && currPath.skip) {
+    if (choice === 1 && currPath.skip) {
       setSkipNumber(currPath.skipNumber);
     }
     if (currPath.end) {
-      if (choice === "pull the plug") {
-        localStorage.setItem("choice", "pull the plug");
+      if (choice === 0) {
+        localStorage.setItem("choice", 0);
       } else {
-        localStorage.setItem("choice", "let him go slowly");
+        localStorage.setItem("choice", 1);
       }
     }
   }
@@ -135,7 +140,8 @@ export default function Home() {
         <link rel="icon" href="/icon.png" />
       </Head>
       <div className={styles.container}>
-        {cookie === "pull the plug" ? (
+        {/* Code to handle cookie / completion of game the first time */}
+        {cookie === 1 ? (
           <TypeIt
             getBeforeInit={(instance) => {
               instance.options({ speed: DEFAULT_SPEED });
@@ -148,7 +154,7 @@ export default function Home() {
               return instance;
             }}
           />
-        ) : cookie === "let him go slowly" ? (
+        ) : cookie === 0 ? (
           <TypeIt
             getBeforeInit={(instance) => {
               instance.options({ speed: DEFAULT_SPEED });
@@ -160,20 +166,28 @@ export default function Home() {
         ) : (
           <>
             <div className={styles.displayContainer}>
-              <TypeIt
-                getBeforeInit={(instance) => {
-                  instance.options({ speed: DEFAULT_SPEED });
-                  instance
-                    .type(displayText[location].display)
-                    .flush(() => delayButton(1000));
+              {location === 0 ? (
+                <h1 className={styles.title}>A world of space</h1>
+              ) : (
+                <></>
+              )}
+              {firstLoad && (
+                <TypeIt
+                  getBeforeInit={(instance) => {
+                    instance.options({ speed: DEFAULT_SPEED });
+                    instance
+                      .type(displayText[location].display)
 
-                  return instance;
-                }}
-                getAfterInit={(instance) => {
-                  setInstance(instance);
-                  return instance;
-                }}
-              />
+                      .flush(() => delayButton(1000));
+
+                    return instance;
+                  }}
+                  getAfterInit={(instance) => {
+                    setInstance(instance);
+                    return instance;
+                  }}
+                />
+              )}
             </div>
 
             {showButton &&
@@ -183,14 +197,15 @@ export default function Home() {
                   return (
                     <button
                       key={i}
-                      onClick={() => progressStory(event)}
+                      onClick={() => progressStory(parseInt(i), event)}
                       style={{ marginBottom: "2vh" }}
                     >
                       {event}
                     </button>
                   );
                 })
-              ) : displayText[location].button !== "" ? (
+              ) : // using empty button string to denote that no button should exist
+              displayText[location].button !== "" ? (
                 <button onClick={() => progressStory()}>
                   {displayText[location].button}
                 </button>
