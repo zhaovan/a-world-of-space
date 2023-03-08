@@ -7,13 +7,15 @@ import text from "../script/script";
 
 const DEFAULT_SPEED = 50;
 
+const DEBUG_SPEED = 1;
+
 export default function Home() {
   const [instance, setInstance] = useState(null);
   const [showButton, setShowButton] = useState(false);
 
   const [firstLoad, setFirstLoad] = useState(false);
 
-  // 55 is the choice
+  // 59 is the choice
   const [location, setLocation] = useState(0);
 
   const [backgroundAudio, setBackgroundAudio] = useState(null);
@@ -21,46 +23,59 @@ export default function Home() {
   const [shoppingAudio, setShoppingAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hospitalAudio, setHospitalAudio] = useState(null);
-  const [choice, setChoice] = useState(null);
-  const [skipNumber, setSkipNumber] = useState(0);
 
-  const [displayText, setDisplayText] = useState(text);
+  const [coffeeAudio, setCoffeeAudio] = useState(null);
+  const [startTime, setStartTime] = useState(null);
+
+  const displayText = text;
 
   const [cookie, setCookie] = useState(null);
+
+  let skipNumber = 0;
 
   useEffect(() => {
     setBackgroundAudio(new Audio("/music1.mp3"));
     setVoiceAudio(new Audio("/voice.m4a"));
     setHospitalAudio(new Audio("/hospital.m4a"));
     setShoppingAudio(new Audio("/shopping.m4a"));
-    setCookie(parseInt(localStorage.getItem("choice")));
+    setCoffeeAudio(new Audio("/coffee.mp3"));
+    setCookie(localStorage.getItem("time"));
     setTimeout(() => setFirstLoad(true), 2500);
+    setStartTime(new Date());
   }, []);
 
   function progressStory(currChoice = "", text = "") {
     setShowButton(false);
-    console.log(currChoice === 1);
-    let newLocation = location + 1 + skipNumber;
+
+    const currStage = displayText[location];
+
+    if (currStage.countTime) {
+      const endTime = new Date();
+      localStorage.setItem("time", endTime.getTime() - startTime.getTime());
+    }
+
+    if (currStage.end) {
+      return;
+    }
+
+    // functionality for skipping around in the dialog
+    if ("skipNumbers" in currStage || "skipNumber" in currStage) {
+      if ("skipNumber" in currStage) {
+        skipNumber = currStage.skipNumber;
+      } else {
+        skipNumber = currStage.skipNumbers[currChoice];
+      }
+    } else {
+      skipNumber = 0;
+    }
 
     const pastLocation = location;
+    let newLocation = location + 1 + skipNumber;
 
     setLocation(newLocation);
-    setSkipNumber(0);
 
     const currPath = displayText[newLocation];
 
-    if (currChoice !== "") {
-      setChoice(currChoice);
-      backgroundAudio.pause();
-      hospitalAudio.pause();
-      shoppingAudio.pause();
-      currPath.button = text;
-    }
-
-    // first choice
-    if (currChoice === 0) {
-      backgroundAudio.pause();
-    }
     voiceAudio.loop = true;
 
     // if it is a real displayText message and not a spacing line
@@ -83,6 +98,17 @@ export default function Home() {
     if (currPath.backgroundMusicOn === false) {
       console.log("background music off");
       backgroundAudio.pause();
+    }
+
+    if (currPath.coffeeSoundOn) {
+      console.log("coffee sound on");
+      coffeeAudio.play();
+      coffeeAudio.volume = 0.6;
+    }
+
+    if (currPath.coffeeSoundOn === false) {
+      console.log("coffee sound off");
+      coffeeAudio.pause();
     }
 
     if (shoppingAudio && currPath.shoppingMusicOn) {
@@ -116,16 +142,6 @@ export default function Home() {
         voiceAudio.pause();
         delayButton(1000);
       });
-    if (choice === 1 && currPath.skip) {
-      setSkipNumber(currPath.skipNumber);
-    }
-    if (currPath.end) {
-      if (choice === 0) {
-        localStorage.setItem("choice", 0);
-      } else {
-        localStorage.setItem("choice", 1);
-      }
-    }
   }
 
   function delayButton(time) {
@@ -141,24 +157,21 @@ export default function Home() {
       </Head>
       <div className={styles.container}>
         {/* Code to handle cookie / completion of game the first time */}
-        {cookie === 1 ? (
+        {cookie !== null ? (
           <TypeIt
             getBeforeInit={(instance) => {
               instance.options({ speed: DEFAULT_SPEED });
+              console.log(cookie);
+              const min = Math.floor(parseInt(cookie) / (1000 * 60));
+              const sec = Math.floor(parseInt(cookie) / 1000);
+              const time = min + " minutes and " + sec + " seconds";
               instance
                 .type(
-                  "there's a faint noise... as if there used to be a man sipping espresso with you here"
+                  "you spent " +
+                    time +
+                    " with him at the end... he might not remember it but you will... now go on and leave this place"
                 )
                 .flush();
-
-              return instance;
-            }}
-          />
-        ) : cookie === 0 ? (
-          <TypeIt
-            getBeforeInit={(instance) => {
-              instance.options({ speed: DEFAULT_SPEED });
-              instance.type("i can't believe he's really gone").flush();
 
               return instance;
             }}
@@ -174,7 +187,7 @@ export default function Home() {
               {firstLoad && (
                 <TypeIt
                   getBeforeInit={(instance) => {
-                    instance.options({ speed: DEFAULT_SPEED });
+                    instance.options({ speed: DEBUG_SPEED });
                     instance
                       .type(displayText[location].display)
 
