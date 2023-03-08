@@ -31,6 +31,8 @@ export default function Home() {
 
   const [cookie, setCookie] = useState(null);
 
+  const [debug, setDebug] = useState(false);
+
   let skipNumber = 0;
 
   useEffect(() => {
@@ -40,6 +42,7 @@ export default function Home() {
     setShoppingAudio(new Audio("/shopping.m4a"));
     setCoffeeAudio(new Audio("/coffee.mp3"));
     setCookie(localStorage.getItem("time"));
+    setDebug(localStorage.getItem("debug") === "true");
     setTimeout(() => setFirstLoad(true), 2500);
     setStartTime(new Date());
   }, []);
@@ -187,7 +190,9 @@ export default function Home() {
               {firstLoad && (
                 <TypeIt
                   getBeforeInit={(instance) => {
-                    instance.options({ speed: DEFAULT_SPEED });
+                    instance.options({
+                      speed: debug ? DEBUG_SPEED : DEFAULT_SPEED,
+                    });
                     instance
                       .type(displayText[location].display)
 
