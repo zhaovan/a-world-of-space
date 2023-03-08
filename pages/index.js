@@ -187,7 +187,7 @@ export default function Home() {
               {firstLoad && (
                 <TypeIt
                   getBeforeInit={(instance) => {
-                    instance.options({ speed: DEBUG_SPEED });
+                    instance.options({ speed: DEFAULT_SPEED });
                     instance
                       .type(displayText[location].display)
 
