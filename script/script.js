@@ -14,7 +14,7 @@ const text = [
     display: "i've been walking around for hours... it's just you and me here",
     button: "oh. how'd we even get here?",
   },
-  { display: "maybe our consciousness touched somewhere", button: "okay..." },
+  { display: "maybe your consciousness touched mine", button: "okay..." },
   {
     display: "and it's here... meant to be together",
     button: "that really doesn't clear it up",
@@ -29,7 +29,7 @@ const text = [
   {
     display:
       "we might be here for a while... might as well make ourselves at home",
-    button: "ill try",
+    button: "i'll try",
   },
   {
     display: "i would kill for a good espresso",
@@ -51,7 +51,7 @@ const text = [
   },
   {
     display: "....",
-    button: "*it sound's like he's struggling... maybe I should help?*",
+    button: "*it sounds like he's struggling... maybe I should help?*",
   },
   {
     display: "all done! here ya go... one double shot, on me!",
@@ -76,7 +76,7 @@ const text = [
   { display: "sounds good, here goes", button: "..." },
   {
     display:
-      "a boy and a father are out on a shopping trip. the boy wants to stop by at the ice cream parlor. the father, being the dutiful dad, obliges",
+      "a boy and a father are out on a shopping trip. the boy wants to stop by the ice cream parlor. the father, being the dutiful dad, obliges",
     button: "...",
     shoppingMusicOn: true,
   },
