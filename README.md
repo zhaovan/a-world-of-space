@@ -1,3 +1,4 @@
+![Screenshot 2023-03-10 at 5 48 11 PM](https://user-images.githubusercontent.com/43022200/224458450-c39f0f38-df3b-4027-82f9-8de3f5c6dc42.png)
 # A World of Space
 A world of space is an interactive fiction piece about a variety of things. it touches on a few things: life, the notion of free will, family, and deals with the browser as a medium. I made it primarily because I was interested in two aspects: building a choose your own adventure game that's inspired by twine but has UI elements that I wanted to create and creating an interactive fiction piece
 
