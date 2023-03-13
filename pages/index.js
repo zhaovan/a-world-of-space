@@ -166,7 +166,7 @@ export default function Home() {
               instance.options({ speed: DEFAULT_SPEED });
               console.log(cookie);
               const min = Math.floor(parseInt(cookie) / (1000 * 60));
-              const sec = Math.floor(parseInt(cookie) / 1000);
+              const sec = Math.floor(parseInt(cookie) / 1000) % 60;
               const time = min + " minutes and " + sec + " seconds";
               instance
                 .type(
