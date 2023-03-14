@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: "Pixeloid Mono";
   src: url("/fonts/PixeloidMono.ttf");
 }
@@ -14,7 +14,7 @@
   font-family: "Pixeloid Sans";
   src: url("/fonts/PixeloidSansBold.ttf");
   font-weight: bold;
-}
+} */
 
 html,
 body {
