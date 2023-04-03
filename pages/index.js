@@ -16,7 +16,7 @@ export default function Home() {
   const [firstLoad, setFirstLoad] = useState(false);
 
   // 59 is the choice
-  const [location, setLocation] = useState(0);
+  const [location, setLocation] = useState(text.length - 3);
 
   const [backgroundAudio, setBackgroundAudio] = useState(null);
   const [voiceAudio, setVoiceAudio] = useState(null);
