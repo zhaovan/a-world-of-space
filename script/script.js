@@ -256,7 +256,7 @@ const text = [
   { display: "....", button: "..." },
   { display: "....", button: "..." },
   {
-    display: "maybe try coming back to this page...and see if he's here?",
+    display: "*maybe try coming back to this page...and see if he's here?(",
     button: "...",
     end: true,
   },
